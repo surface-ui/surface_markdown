@@ -1,5 +1,5 @@
 defmodule Surface.Components.MarkdownTest do
-  use Surface.ConnCase, async: true
+  use SurfaceMarkdown.ConnCase, async: true
 
   alias Surface.Components.Markdown
 
@@ -120,7 +120,7 @@ defmodule Surface.Components.MarkdownTest do
 end
 
 defmodule Surface.Components.MarkdownSyncTest do
-  use Surface.ConnCase
+  use SurfaceMarkdown.ConnCase
 
   import ExUnit.CaptureIO
   alias Surface.Components.Markdown

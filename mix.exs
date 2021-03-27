@@ -1,15 +1,24 @@
 defmodule SurfaceMarkdown.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :surface_markdown,
-      version: "0.1.0",
-      elixir: "~> 1.11",
+      version: @version,
+      elixir: "~> 1.8",
+      description: "A Markdown component for Surface",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: docs(),
+      package: package()
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
@@ -21,8 +30,26 @@ defmodule SurfaceMarkdown.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:floki, "~> 0.25.0", only: :test},
+      {:jason, "~> 1.0"},
       {:surface, "0.3.0"},
       {:earmark, "~> 1.3"}
     ]
+  end
+
+  defp docs do
+    [
+      main: "Surface",
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/surface-ui/surface_markdown"
+    ]
+  end
+
+  defp package do
+    %{
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/surface-ui/surface_markdown"}
+    }
   end
 end
