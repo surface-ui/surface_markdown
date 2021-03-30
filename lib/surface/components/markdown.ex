@@ -45,35 +45,19 @@ defmodule Surface.Components.Markdown do
       # Need to reconstruct the relative line
       |> markdown_as_html!(meta.caller, meta.line, opts)
 
-    node = %Surface.AST.Literal{value: html}
+    code =
+      cond do
+        unwrap ->
+          html
 
-    cond do
-      unwrap ->
-        node
+        class ->
+          ~s(<div class="#{class}">#{html}</div>)
 
-      class ->
-        %Surface.AST.Tag{
-          element: "div",
-          directives: [],
-          attributes: [
-            %Surface.AST.Attribute{
-              name: "class",
-              value: %Surface.AST.Literal{value: class}
-            }
-          ],
-          children: [node],
-          meta: meta
-        }
+        true ->
+          ~s(<div>#{html}</div>)
+      end
 
-      true ->
-        %Surface.AST.Tag{
-          element: "div",
-          directives: [],
-          attributes: [],
-          children: [node],
-          meta: meta
-        }
-    end
+    Surface.Compiler.compile(code, meta.line, meta.caller)
   end
 
   defp trim_leading_space(markdown) do
