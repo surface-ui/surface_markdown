@@ -248,14 +248,14 @@ defmodule Surface.Components.MarkdownSyncTest do
           """
         end
 
-      message = ~r"""
+      message = """
       code:2: invalid value for property "class"
 
       Expected a string while evaluating {{ @class }}, got: nil
 
       Hint: properties of macro components can only accept static values like module attributes,
       literals or compile-time expressions. Runtime variables and expressions, including component
-      assigns, cannot be avaluated as they are not available during compilation.
+      assigns, cannot be evaluated as they are not available during compilation.
       """
 
       assert_raise(CompileError, message, fn ->
