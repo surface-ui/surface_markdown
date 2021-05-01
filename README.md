@@ -4,7 +4,7 @@ A simple Surface macro component that converts **markdown** into **HTML** at com
 
 ## Installation
 
-Add `surface_markdown` to your list of dependencies in mix.exs:
+Add `surface_markdown` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
