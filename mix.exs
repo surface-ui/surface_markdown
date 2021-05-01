@@ -30,7 +30,7 @@ defmodule SurfaceMarkdown.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.19.0", only: :docs},
       {:floki, "~> 0.25.0", only: :test},
       {:jason, "~> 1.0"},
       {:surface, "~> 0.4.0"},
