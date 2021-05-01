@@ -39,8 +39,6 @@ jobs:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
           experimental-otp: true
-      - run: mix format --check-formatted
-        if: matrix.check_formatted
       - name: Install Dependencies
         run: |
           mix local.hex --force
@@ -48,4 +46,6 @@ jobs:
           mix deps.get --only test
       - run: mix compile --warnings-as-errors
         if: matrix.warnings_as_errors
+      - run: mix format --check-formatted
+        if: matrix.check_formatted
       - run: mix test
