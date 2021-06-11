@@ -6,7 +6,7 @@ defmodule Surface.Components.MarkdownTest do
   test "translate markdown into HTML" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <#Markdown>
           # Head 1
           Bold: **bold**
@@ -29,7 +29,7 @@ defmodule Surface.Components.MarkdownTest do
   test "setting the class" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <#Markdown class="markdown">
           # Head 1
         </#Markdown>
@@ -47,7 +47,7 @@ defmodule Surface.Components.MarkdownTest do
   test "setting multiple classes" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <#Markdown class="markdown small">
           # Head 1
         </#Markdown>
@@ -65,7 +65,7 @@ defmodule Surface.Components.MarkdownTest do
   test "setting unwrap removes the wrapping <div>" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <#Markdown unwrap>
           # Head 1
         </#Markdown>
@@ -81,11 +81,11 @@ defmodule Surface.Components.MarkdownTest do
   test "translates escaped three double-quotes" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <#Markdown>
         ```elixir
         def render(assigns) do
-          ~H"\""
+          ~F"\""
           Hello
           "\""
         end
@@ -95,7 +95,7 @@ defmodule Surface.Components.MarkdownTest do
       end
 
     assert html =~ """
-             ~H&quot;&quot;&quot;
+             ~F&quot;&quot;&quot;
              Hello
              &quot;&quot;&quot;
            """
@@ -104,8 +104,8 @@ defmodule Surface.Components.MarkdownTest do
   test "setting opts forward options to Earmark" do
     html =
       render_surface do
-        ~H"""
-        <#Markdown opts={{ code_class_prefix: "language-" }}>
+        ~F"""
+        <#Markdown opts={code_class_prefix: "language-"}>
           ```elixir
           code
           ```
@@ -130,7 +130,7 @@ defmodule Surface.Components.MarkdownSyncTest do
       using_config Markdown, default_class: "content" do
         code =
           quote do
-            ~H"""
+            ~F"""
             <#Markdown>
               # Head 1
             </#Markdown>
@@ -151,7 +151,7 @@ defmodule Surface.Components.MarkdownSyncTest do
       using_config Markdown, default_class: "content" do
         code =
           quote do
-            ~H"""
+            ~F"""
             <#Markdown class="markdown">
               # Head 1
             </#Markdown>
@@ -172,7 +172,7 @@ defmodule Surface.Components.MarkdownSyncTest do
       using_config Markdown, default_opts: [code_class_prefix: "language-"] do
         code =
           quote do
-            ~H"""
+            ~F"""
             <#Markdown>
               ```elixir
               var = 1
@@ -196,7 +196,7 @@ defmodule Surface.Components.MarkdownSyncTest do
       using_config Markdown, default_opts: [code_class_prefix: "language-", smartypants: false] do
         code =
           quote do
-            ~H"""
+            ~F"""
             <#Markdown>
               "Elixir"
             </#Markdown>
@@ -213,8 +213,8 @@ defmodule Surface.Components.MarkdownSyncTest do
 
         code =
           quote do
-            ~H"""
-            <#Markdown opts={{ smartypants: true }}>
+            ~F"""
+            <#Markdown opts={smartypants: true}>
               "Elixir"
 
               ```elixir
@@ -237,38 +237,10 @@ defmodule Surface.Components.MarkdownSyncTest do
   end
 
   describe "error/warnings" do
-    test "do not accept runtime expressions" do
-      code =
-        quote do
-          ~H"""
-          <#Markdown
-            class={{ @class }}>
-            # Head 1
-          </#Markdown>
-          """
-        end
-
-      message = """
-      code:2: invalid value for property "class"
-
-      Expected a string while evaluating {{ @class }}, got: nil
-
-      Hint: properties of macro components can only accept static values like module attributes,
-      literals or compile-time expressions. Runtime variables and expressions, including component
-      assigns, cannot be evaluated as they are not available during compilation.
-      """
-
-      assert_raise(CompileError, message, fn ->
-        capture_io(:standard_error, fn ->
-          compile_surface(code, %{class: "markdown"})
-        end)
-      end)
-    end
-
     test "show parsing errors/warnings at the right line" do
       code =
         quote do
-          ~H"""
+          ~F"""
           <#Markdown>
             Text
             Text `code
