@@ -5,6 +5,7 @@ defmodule Surface.Components.Markdown do
 
   alias Surface.MacroComponent
   alias Surface.IOHelper
+  alias Surface.AST
 
   @doc "The CSS class for the wrapping `<div>`"
   prop class, :string
@@ -24,11 +25,12 @@ defmodule Surface.Components.Markdown do
   @doc "The markdown text to be translated to HTML"
   slot default
 
-  def expand(attributes, children, meta) do
+  def expand(attributes, content, meta) do
     static_props = MacroComponent.eval_static_props!(__MODULE__, attributes, meta.caller)
 
     unwrap = static_props[:unwrap]
-    class = Surface.AST.find_attribute_value(attributes, :class) || get_config(:default_class) || ""
+
+    class = AST.find_attribute_value(attributes, :class) || get_config(:default_class) || ""
 
     config_opts =
       case get_config(:default_opts) do
@@ -39,8 +41,7 @@ defmodule Surface.Components.Markdown do
     opts = Keyword.merge(config_opts, static_props[:opts] || [])
 
     html =
-      children
-      |> IO.iodata_to_binary()
+      content
       |> trim_leading_space()
       |> String.replace(~S("\""), ~S("""), global: true)
       # Need to reconstruct the relative line
@@ -88,7 +89,7 @@ defmodule Surface.Components.Markdown do
 
     Enum.each(warnings_and_deprecations, fn {_type, line, message} ->
       actual_line = tag_line + line - 1
-      IOHelper.warn(message, caller, fn _ -> actual_line end)
+      IOHelper.warn(message, caller, actual_line)
     end)
 
     if errors != [] do
