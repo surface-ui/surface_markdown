@@ -3,6 +3,7 @@
 ## v0.3.0 (2021-11-24)
 
   * Update to Surface `v0.6.0`
+  * Update to Earmark `v1.4`
 
 ## v0.2.0 (2021-06-17)
 
