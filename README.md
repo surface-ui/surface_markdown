@@ -9,7 +9,7 @@ Add `surface_markdown` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:surface_markdown, "~> 0.2.0"}
+    {:surface_markdown, "~> 0.3.0"}
   ]
 end
 ```
