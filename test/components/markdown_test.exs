@@ -16,7 +16,7 @@ defmodule Surface.Components.MarkdownTest do
       end
 
     assert html =~ """
-           <div>\
+           <div class="">\
            <h1>
            Head 1</h1>
            <p>
@@ -185,7 +185,7 @@ defmodule Surface.Components.MarkdownSyncTest do
         {:ok, _view, html} = live_isolated(conn, view)
 
         assert html =~ """
-               <div><pre><code class="elixir language-elixir">var = 1</code></pre></div>\
+               <div class=\"\"><pre><code class="elixir language-elixir">var = 1</code></pre></div>\
                """
       end
     end
@@ -207,7 +207,7 @@ defmodule Surface.Components.MarkdownSyncTest do
         {:ok, _view, html} = live_isolated(conn, view)
 
         assert html =~ """
-               <div><p>
+               <div class=\"\"><p>
                &quot;Elixir&quot;</p></div>\
                """
 
@@ -229,15 +229,15 @@ defmodule Surface.Components.MarkdownSyncTest do
 
         assert html =~
                  """
-                 <div><p>
+                 <div class=\"\"><p>
                  “Elixir”</p><pre><code class="elixir language-elixir">code</code></pre></div>\
                  """
       end
     end
   end
 
-  describe "error/warnings" do
-    test "show parsing errors/warnings at the right line" do
+  describe "error + warnings" do
+    test "show parsing errors + warnings at the right line" do
       code =
         quote do
           ~F"""
