@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.0 (2022-01-31)
+
+  * Update to Surface `v0.7`
+
 ## v0.3.0 (2021-11-24)
 
   * Update to Surface `v0.6.0`
