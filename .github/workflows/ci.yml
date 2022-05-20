@@ -22,6 +22,12 @@ jobs:
             warnings-as-errors: true
           - elixir: 1.12.1
             otp: 24.0
+            warnings-as-errors: true
+          - elixir: 1.13.4
+            otp: 24.0
+            warnings-as-errors: true
+          - elixir: 1.13.4
+            otp: 25.0
             check_formatted: true
             warnings-as-errors: true
     env:
