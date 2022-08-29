@@ -40,7 +40,8 @@ defmodule SurfaceMarkdown.MixProject do
 
   defp docs do
     [
-      main: "Surface",
+      main: "Surface.Components.Markdown",
+      extras: ["LICENSE"],
       source_ref: "v#{@version}",
       source_url: "https://github.com/surface-ui/surface_markdown"
     ]
