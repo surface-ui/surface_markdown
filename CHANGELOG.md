@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0 (2022-09-01)
+
+  * Update to Surface `v0.8`
+  * Set minimum Elixir version to `v1.12`
+
 ## v0.4.0 (2022-01-31)
 
   * Update to Surface `v0.7`
