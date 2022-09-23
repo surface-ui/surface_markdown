@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.1 (2022-09-23)
+
+  * Support Surface `v0.9`
+
 ## v0.5.0 (2022-09-01)
 
   * Update to Surface `v0.8`
