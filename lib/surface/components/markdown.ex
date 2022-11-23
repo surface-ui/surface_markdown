@@ -69,8 +69,7 @@ defmodule Surface.Components.Markdown do
         [space] = Regex.run(~r/^\s*/, first)
 
         lines
-        |> Enum.map(fn line -> String.replace_prefix(line, space, "") end)
-        |> Enum.join("\n")
+        |> Enum.map_join("\n", fn line -> String.replace_prefix(line, space, "") end)
 
       _ ->
         ""
