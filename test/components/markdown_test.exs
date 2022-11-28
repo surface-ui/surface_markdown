@@ -117,6 +117,116 @@ defmodule Surface.Components.MarkdownTest do
            <pre><code class="elixir language-elixir">code</code></pre>
            """
   end
+
+  test "translate markdown from a file to HTML" do
+    html =
+      render_surface do
+        ~F"""
+        <#Markdown from_file="./priv/BASIC.md" />
+        """
+      end
+
+    assert html =~ """
+           <div class="">\
+           <h1>
+           Head 1</h1>
+           <p>
+           Bold: <strong>bold</strong>
+           Code: <code class="inline">code</code></p>
+           </div>
+           """
+  end
+
+  test "setting the class on markdown received from a file" do
+    html =
+      render_surface do
+        ~F"""
+        <#Markdown class="markdown" from_file="./priv/BASIC.md" />
+        """
+      end
+
+    assert html =~ """
+           <div class="markdown">\
+           <h1>
+           Head 1</h1>
+           <p>
+           Bold: <strong>bold</strong>
+           Code: <code class="inline">code</code></p>
+           </div>
+           """
+  end
+
+  test "setting multiple classes on markdown received from a file" do
+    html =
+      render_surface do
+        ~F"""
+        <#Markdown class="markdown small" from_file="./priv/BASIC.md" />
+        """
+      end
+
+    assert html =~ """
+           <div class="markdown small">\
+           <h1>
+           Head 1</h1>
+           <p>
+           Bold: <strong>bold</strong>
+           Code: <code class="inline">code</code></p>
+           </div>
+           """
+  end
+
+  test "setting unwrap removes the wrapping <div> of markdown received from a file" do
+    html =
+      render_surface do
+        ~F"""
+              <#Markdown unwrap from_file="./priv/BASIC.md" />
+        """
+      end
+
+    assert html == """
+           <h1>
+           Head 1</h1>
+           <p>
+           Bold: <strong>bold</strong>
+           Code: <code class="inline">code</code></p>
+           """
+  end
+
+  test "translates escaped three double-quotes of markdown received from a file" do
+    html =
+      render_surface do
+        ~F"""
+        <#Markdown from_file="./priv/QUOTED.md">
+        ```elixir
+        def render(assigns) do
+          ~F"\""
+          Hello
+          "\""
+        end
+        ```
+        </#Markdown>
+        """
+      end
+
+    assert html =~ """
+             ~F&quot;&quot;&quot;
+             Hello
+             &quot;&quot;&quot;
+           """
+  end
+
+  test "setting opts forward options to Earmark on markdown received from a file" do
+    html =
+      render_surface do
+        ~F"""
+        <#Markdown opts={code_class_prefix: "language-"} from_file="./priv/EARMARK_OPTS.md" />
+        """
+      end
+
+    assert html =~ """
+           <pre><code class="elixir language-elixir">code</code></pre>
+           """
+  end
 end
 
 defmodule Surface.Components.MarkdownSyncTest do
