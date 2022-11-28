@@ -13,6 +13,9 @@ defmodule Surface.Components.Markdown do
   @doc "Removes the wrapping `<div>`, if `true`"
   prop unwrap, :boolean, static: true, default: false
 
+  @doc "Provides the file name that will be used to obtain markdown content"
+  prop from_file, :string, default: nil
+
   @doc """
   Keyword list with options to be passed down to `Earmark.as_html/2`.
 
@@ -31,6 +34,9 @@ defmodule Surface.Components.Markdown do
     unwrap = static_props[:unwrap]
 
     class = AST.find_attribute_value(attributes, :class) || get_config(:default_class) || ""
+    filename = AST.find_attribute_value(attributes, :from_file)
+
+    content = if filename, do: File.read!(filename.value), else: content
 
     config_opts =
       case get_config(:default_opts) do
@@ -79,6 +85,12 @@ defmodule Surface.Components.Markdown do
   defp markdown_as_html!(markdown, caller, tag_line, opts) do
     markdown
     |> Earmark.as_html(struct(Earmark.Options, opts))
+    |> handle_result!(caller, tag_line)
+  end
+
+  defp markdown_from_as_html(filename, caller, tag_line, opts) do
+    filename
+    |> Earmark.from_file!(struct(Earmark.Options, opts))
     |> handle_result!(caller, tag_line)
   end
 
