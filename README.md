@@ -9,7 +9,7 @@ Add `surface_markdown` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:surface_markdown, "~> 0.5.0"}
+    {:surface_markdown, "~> 0.6.0"}
   ]
 end
 ```
@@ -19,10 +19,10 @@ end
 A set of global options you can set in `config.exs`. Available options are:
 
   * `default_class` - The default CSS class for the wrapping `<div>`. It
-  can be overridden using propety `class`.
+  can be overridden using property `class`.
 
   * `default_opts` - The default set of options to be passed down to `Earmark.as_html/2`.
-  It can be overridden using propety `opts`.
+  It can be overridden using property `opts`.
 
 ```elixir
 config :surface, :components, [

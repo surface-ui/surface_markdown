@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.6.0 (2023-05-29)
+
+  * Support Surface `v0.10`
+  * Fix error line
+
 ## v0.5.1 (2022-09-23)
 
   * Support Surface `v0.9`
