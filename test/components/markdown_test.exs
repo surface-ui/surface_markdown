@@ -241,11 +241,14 @@ defmodule Surface.Components.MarkdownSyncTest do
       code =
         quote do
           ~F"""
-          <#Markdown>
-            Text
-            Text `code
-            Text
-          </#Markdown>
+          <div>
+            <#Markdown>
+              A
+              B
+              =
+              C
+            </#Markdown>
+          </div>
           """
         end
 
@@ -255,8 +258,8 @@ defmodule Surface.Components.MarkdownSyncTest do
         end)
 
       assert output =~ ~r"""
-             Closing unclosed backquotes ` at end of input
-               code:2:\
+             Unexpected line =
+               code:5:\
              """
     end
   end

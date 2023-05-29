@@ -45,14 +45,14 @@ defmodule Surface.Components.Markdown do
       |> trim_leading_space()
       |> String.replace(~S("\""), ~S("""), global: true)
       # Need to reconstruct the relative line
-      |> markdown_as_html!(meta.caller, meta.line, opts)
+      |> markdown_as_html!(meta, opts)
 
     if unwrap do
-      quote_surface do
+      quote_surface caller: meta.caller do
         ~F"{^html}"
       end
     else
-      quote_surface do
+      quote_surface caller: meta.caller do
         ~F"<div class={^class}>{^html}</div>"
       end
     end
@@ -77,25 +77,25 @@ defmodule Surface.Components.Markdown do
     end
   end
 
-  defp markdown_as_html!(markdown, caller, tag_line, opts) do
+  defp markdown_as_html!(markdown, meta, opts) do
     markdown
     |> Earmark.as_html(struct(Earmark.Options, opts))
-    |> handle_result!(caller, tag_line)
+    |> handle_result!(meta)
   end
 
-  defp handle_result!({_, html, messages}, caller, tag_line) do
+  defp handle_result!({_, html, messages}, meta) do
     {errors, warnings_and_deprecations} =
       Enum.split_with(messages, fn {type, _line, _message} -> type == :error end)
 
     Enum.each(warnings_and_deprecations, fn {_type, line, message} ->
-      actual_line = tag_line + line - 1
-      IOHelper.warn(message, caller, actual_line)
+      actual_line = meta.line + line
+      IOHelper.warn(message, meta.caller, actual_line)
     end)
 
     if errors != [] do
       [{_type, line, message} | _] = errors
-      actual_line = tag_line + line - 1
-      IOHelper.compile_error(message, caller.file, actual_line)
+      actual_line = meta.line + line
+      IOHelper.compile_error(message, meta.caller.file, actual_line)
     end
 
     html
