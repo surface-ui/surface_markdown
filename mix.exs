@@ -1,7 +1,7 @@
 defmodule SurfaceMarkdown.MixProject do
   use Mix.Project
 
-  @version "0.6.0"
+  @version "0.6.1"
 
   def project do
     [
@@ -33,7 +33,7 @@ defmodule SurfaceMarkdown.MixProject do
       {:ex_doc, ">= 0.28.5", only: :docs},
       {:floki, "~> 0.33.1", only: :test},
       {:jason, "~> 1.0"},
-      {:surface, ">=0.8.0 and < 0.11.0"},
+      {:surface, "~> 0.8"},
       {:earmark, "~> 1.4"}
     ]
   end
