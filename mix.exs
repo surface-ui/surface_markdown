@@ -7,7 +7,7 @@ defmodule SurfaceMarkdown.MixProject do
     [
       app: :surface_markdown,
       version: @version,
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       description: "A Markdown component for Surface",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,

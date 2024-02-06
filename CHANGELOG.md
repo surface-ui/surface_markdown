@@ -1,5 +1,9 @@
 # Changelog
 
+## v?.?.? (yyyy-mm-dd)
+
+* Set minimum Elixir version to `v1.13`
+
 ## v0.6.1 (2023-06-02)
 
 * Support Surface `v0.11`
