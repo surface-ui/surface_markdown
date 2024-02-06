@@ -32,7 +32,6 @@ defmodule SurfaceMarkdown.MixProject do
     [
       {:surface, "~> 0.8"},
       {:earmark, "~> 1.4.7 or ~> 1.4"},
-      {:jason, "~> 1.0"},
       {:floki, "~> 0.35", only: :test},
       {:ex_doc, ">= 0.31.1", only: :docs}
     ]
