@@ -7,7 +7,7 @@ defmodule SurfaceMarkdown.MixProject do
     [
       app: :surface_markdown,
       version: @version,
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       description: "A Markdown component for Surface",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -30,11 +30,10 @@ defmodule SurfaceMarkdown.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, ">= 0.28.5", only: :docs},
-      {:floki, "~> 0.33.1", only: :test},
-      {:jason, "~> 1.0"},
       {:surface, "~> 0.8"},
-      {:earmark, "~> 1.4"}
+      {:earmark, "~> 1.4.7 or ~> 1.4"},
+      {:floki, "~> 0.35", only: :test},
+      {:ex_doc, ">= 0.31.1", only: :docs}
     ]
   end
 
