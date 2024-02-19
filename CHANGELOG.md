@@ -1,8 +1,10 @@
 # Changelog
 
-## v?.?.? (yyyy-mm-dd)
+## v0.7.0 (2023-02-19)
 
 * Set minimum Elixir version to `v1.13`
+* Requires Earmark `v1.4.7+`
+* Remove direct dependency on Jason
 
 ## v0.6.1 (2023-06-02)
 
