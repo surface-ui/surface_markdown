@@ -21,6 +21,8 @@ jobs:
             otp: '25.0'
           - elixir: '1.15.0'
             otp: '26.0'
+          - elixir: '1.16.0'
+            otp: '26.0'
             check_formatted: true
             warnings_as_errors: true
             update_deps: true
