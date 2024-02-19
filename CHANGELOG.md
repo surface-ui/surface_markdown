@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.0 (2023-02-19)
+## v0.7.0 (2024-02-19)
 
 * Set minimum Elixir version to `v1.13`
 * Requires Earmark `v1.4.7+`
